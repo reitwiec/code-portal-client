@@ -372,8 +372,9 @@ export default styled(Profile)`
 		width: 100%;
 		justify-content: center;
 		align-items: center;
-		color: rgba(255, 255, 255, 0.6);
-		font-weight: bold;
+		color: rgba(255, 255, 255, 0.8);
+		font-weight: 500;
+		letter-spacing: 1.5px;
 		margin-top: 115px;
 	}
 
