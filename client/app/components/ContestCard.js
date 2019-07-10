@@ -65,6 +65,7 @@ export default styled(ContestCard)`
 	min-height: 300px;
 	height: auto;
 	width: 27%;
+
 	text-align: center;
 	padding: 1em;
 	padding-top: 5px;

@@ -30,30 +30,6 @@ class Profile extends Component {
 					<div className="area">
 						<div className="personal-data">
 							<div>
-								<table className="tg1">
-									{email && (
-										<tr>
-											<td className="tg-0pky lead">Email ID :</td>
-											<td className="tg-0pky follow long">{email}</td>
-										</tr>
-									)}
-									{phone && (
-										<tr>
-											<td className="tg-0pky lead">Phone :</td>
-											<td className="tg-0pky follow">{phone}</td>
-										</tr>
-									)}
-									{regno && (
-										<tr>
-											<td className="tg-0pky lead">Regno :</td>
-											<td className="tg-0pky follow">regno</td>
-										</tr>
-									)}
-								</table>
-							</div>
-						</div>
-						<div className="personal-data">
-							<div>
 								{email && (
 									<div>
 										<Button onClick={logout}>Sign Out</Button>
@@ -88,7 +64,25 @@ class Profile extends Component {
 									{organisation && (
 										<tr>
 											<td className="tg-0pky lead">Organisation :</td>
-											<td className="tg-0pky follow">organisation</td>
+											<td className="tg-0pky follow">{organisation}</td>
+										</tr>
+									)}
+									{email && (
+										<tr>
+											<td className="tg-0pky lead">Email ID :</td>
+											<td className="tg-0pky follow long">{email}</td>
+										</tr>
+									)}
+									{phone && (
+										<tr>
+											<td className="tg-0pky lead">Phone :</td>
+											<td className="tg-0pky follow">{phone}</td>
+										</tr>
+									)}
+									{regno && (
+										<tr>
+											<td className="tg-0pky lead">Regno :</td>
+											<td className="tg-0pky follow">{regno}</td>
 										</tr>
 									)}
 								</table>
@@ -171,8 +165,8 @@ export default styled(Profile)`
 		border-radius: 5px;
 		filter: drop-shadow(0px 15px 15px #181e30);
 		background: #202942;
-		width: 400px;
-		height: 300px;
+		width: 500px;
+		height: 450px;
 		border: none;
 		animation: ${check1} 2s ease 1;
 	}
@@ -228,7 +222,7 @@ export default styled(Profile)`
 		filter: drop-shadow(0px 15px 15px #181e30);
 		background: #202942;
 
-		width: 60%;
+		width: 50%;
 		border: none;
 		animation: ${check} 2s ease 1;
 	}
@@ -335,6 +329,7 @@ export default styled(Profile)`
 
 		padding-right: 20px;
 		margin: 20px;
+		margin-top: 10px;
 	}
 
 	.beauty {
@@ -390,20 +385,14 @@ export default styled(Profile)`
 		text-align: left;
 		font-size: 1em;
 		font-weight: 600;
-		margin-left: 20px;
+		margin-left: 10px;
 		max-width: 150px;
 		display: inline-block;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		width: 150px;
+		max-width: 280px;
 	}
-
-	.follow.long {
-		width: 300px;
-		max-width: 300px;
-	}
-
 	.personal-data {
 		display: flex;
 		flex-direction: column;
@@ -412,6 +401,7 @@ export default styled(Profile)`
 			display: flex;
 			flex-direction: row;
 		}
+		margin-left: 20px;
 	}
 
 	${Content} {
