@@ -13,13 +13,7 @@ class SubmissionsView extends Component {
 
 	render() {
 		const {
-			questionsStore: {
-				submissions,
-				id,
-				score,
-				slug,
-				title
-			}
+			questionsStore: { submissions, id, score, slug, title }
 		} = this.props;
 
 		const contestSlug = this.props.contestsStore.slug;
@@ -55,10 +49,15 @@ class SubmissionsView extends Component {
 							<div className="content">
 								{submissions.map((submission, i) => (
 									<div className="questions" key={`submission_${i}`}>
-										<section>{(new Date(submission.created_at).toString())}</section>
+										<section>
+											{new Date(submission.created_at).toString()}
+										</section>
 										<span className="details">Score: {submission.points}</span>
 										<span className="strength">
-											Verdict: {submission.verdict === 'CE' ? 'COMPILE TIME ERROR' : submission.verdict}
+											Verdict:{' '}
+											{submission.verdict === 'CE'
+												? 'COMPILE TIME ERROR'
+												: submission.verdict}
 										</span>
 										<NavLink to={`/submission/${submission.id}`}>
 											<Button>View</Button>
@@ -67,34 +66,6 @@ class SubmissionsView extends Component {
 								))}
 							</div>
 						</div>
-
-						{/* <div className="stats">
-							<div className="heading1">
-								<span id="rank">
-								</span>
-								<span className="fadebg1">Win</span>
-							</div>
-							<div className="otherstat">
-								<NavLink to={`/leaderboard/${slug}`}>
-									<div className="box">
-										<svg
-											id="Capa_1"
-											x="0px"
-											y="0px"
-											viewBox="0 0 94.667 94.667"
-											width="512px"
-											height="512px">
-											<path
-												d="M82.413,9.146h9.346V83.33h-9.346V9.146z M63.803,11.831l-1.294,0.402c-1.62,0.512-3.524-0.201-4.179-1.558    c-0.314-0.657-0.329-1.383-0.041-2.047c0.334-0.768,1.044-1.369,1.945-1.65l14.591-4.545l1.776,13.001    c0.1,0.662-0.086,1.338-0.525,1.898c-0.537,0.688-1.4,1.134-2.368,1.226c-0.116,0.012-0.246,0.018-0.371,0.018    c-1.651,0-3.053-1.052-3.261-2.444l-0.225-1.967C52.988,37.514,14.157,62.539,12.472,63.617c-0.572,0.366-1.256,0.561-1.98,0.561    c-0.976,0-1.894-0.36-2.517-0.991c-0.573-0.577-0.841-1.313-0.758-2.069c0.087-0.785,0.558-1.507,1.294-1.975    C8.906,58.889,47.367,34.026,63.803,11.831z M74.859,25.623v57.705h-9.344V25.623H74.859z M58.518,42.77v40.56h-9.347V42.77    H58.518z M41.617,60.583v22.744h-9.345V60.583H41.617z M23.75,69.494v13.834h-9.344V69.494H23.75z M94.666,92.234H0V85.3h94.667    L94.666,92.234L94.666,92.234z"
-												fill="#7e7cad"
-											/>
-										</svg>
-											<span className="tooltiptext1">Check Leaderboard</span>
-									</div>
-								</NavLink>
-								<span id="lead">Leaderboard</span>
-							</div>
-						</div> */}
 					</div>
 
 					<div className="beauty">
@@ -142,6 +113,9 @@ var Gradient = keyframes`
 `;
 
 export default styled(SubmissionsView)`
+	${Content} {
+		min-height: 77vh;
+	}
 	.fadebg1 {
 		padding-left: 10px;
 		opacity: 0.23;
@@ -204,9 +178,6 @@ export default styled(SubmissionsView)`
 		background: #f77f6e;
 	}
 
-	.content {
-		filter: drop-shadow(0px 5px 5px #282840);
-	}
 	.strength {
 		margin-left: 60px;
 		font-weight: 400;
@@ -214,43 +185,26 @@ export default styled(SubmissionsView)`
 	}
 	.questions {
 		position: relative;
-		color: #dfdfe7;
+		color: #fff;
 		font-size: 1.3em;
 		font-weight: 700;
 		line-height: 1;
 		padding: 10px;
 		margin: 20px 0 20px 0;
-		background: #2f2e4d;
+		background: #2b2e4e;
 		transition: 0.2s;
 	}
 	.questions:hover {
 		color: #fff;
-		background: #363559;
+		background: #fff;
 	}
 	.container {
 		border-radius: 6px;
-		background: #2f2f4b; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2f4b', endColorstr='#26263e',GradientType=1 );
+
 		width: 60%;
 		border: none;
-		filter: drop-shadow(0 0 0.95rem #1f2032);
+		filter: drop-shadow(0px 15px 15px #181e30);
+		background: #202942;
 		animation: ${check} 2s ease 1;
 	}
 	border: none;
@@ -260,11 +214,10 @@ export default styled(SubmissionsView)`
 		z-index: 1;
 		position: sticky;
 		top: 0;
-		filter: drop-shadow(0px 5px 5px #282840);
 		border-radius: 6px 6px 0 0;
 		height: 55px;
 
-		background: linear-gradient(45deg, #fd6b9a, #f77f6e);
+		background: linear-gradient(45deg, #249ec7, #4cd0c5);
 		background-size: 400% 400%;
 		animation: ${Gradient} 3s ease infinite;
 	}

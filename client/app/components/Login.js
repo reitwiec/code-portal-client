@@ -16,9 +16,10 @@ class Login extends Component {
 					<Link className="link" to={'/register'}>
 						Create an Account
 					</Link>
-					{/* <Link className="link" to={'/forgotpassword'}>
+					<Link className="link" to={'/recover'}>
 						Recover Account
 					</Link>
+					{/* 
 					<Link className="link" to={'/register'} id="google">
 						Log in with Google
 					</Link> */}
@@ -81,7 +82,7 @@ export default styled(Login)`
 	.alternative > .link {
 		margin: 20px;
 		font-size: 0.9em;
-		color: #9e9ebb;
+		color: #6b94ff;
 		transition: 0.3s;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;

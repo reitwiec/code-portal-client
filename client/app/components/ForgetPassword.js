@@ -1,29 +1,31 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { observer, inject } from 'mobx-react';
-import { Redirect } from 'react-router-dom';
-
+import { iecselogo } from 'assets';
+import { NavLink } from 'react-router-dom';
 import { Button } from 'components';
 import { format } from 'util';
+import { observer, inject } from 'mobx-react';
+import { Redirect } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
 
-@inject('authStore', 'userStore')
+@inject('authStore', 'userStore', 'forgotStore')
 @observer
-class Loginbox extends Component {
+class ForgetPassword extends Component {
 	render() {
 		const {
 			className,
-			authStore: {
+			authStore: { isLoggedIn },
+			forgotStore: {
 				email,
 				setEmail,
-				password,
-				setPassword,
-				login,
-				isLoggedIn,
-				meta
+				meta,
+				recover,
+				captcha,
+				onResolved,
+				setCaptchaDOM
 			},
 			userStore: { user }
 		} = this.props;
-
 		if (!isLoggedIn || !user) {
 			return (
 				<div className={className}>
@@ -34,25 +36,16 @@ class Loginbox extends Component {
 						<div className="hello3" />
 						<div className="hello4" />
 						<h2>
-							{' '}
 							<div className="login2">CodePortal</div>{' '}
-							<div className="login1">Sign into your account.</div>
+							<div className="login1">Oops, forgot something?</div>
 						</h2>
-						<form onSubmit={login}>
+						<form onSubmit={recover}>
 							<input
 								type="text"
 								placeholder="Email Address"
 								className="email"
 								value={email}
 								onChange={e => setEmail(e.target.value)}
-								required
-							/>
-							<input
-								type="password"
-								placeholder="Password"
-								className="password"
-								value={password}
-								onChange={e => setPassword(e.target.value)}
 								required
 							/>
 							{meta.msg && (
@@ -64,12 +57,20 @@ class Loginbox extends Component {
 									{meta.msg}{' '}
 								</div>
 							)}
-							<Button onClick={login}>
-								<span>Sign In</span>
+							<ReCAPTCHA
+								ref={el => setCaptchaDOM(el)}
+								sitekey="6LdYa5oUAAAAAH9l_zSg-xctsR5DH5Z6ZMnRd0XU"
+								render="explicit"
+								theme="dark"
+								className="recaptcha"
+								onChange={onResolved}
+							/>
+							<Button onClick={recover}>
+								<span>Recover Password</span>
 							</Button>
 						</form>
 						<div className="beauty">
-							<h1>User</h1>
+							<h1>Pass</h1>
 						</div>
 					</div>
 				</div>
@@ -85,24 +86,24 @@ class Loginbox extends Component {
 }
 
 const test = keyframes`
-	0% { 
-		opacity:0;
-	}
-	100% {
-		opacity:1;
-	}
+0%{ 
+    opacity:0;
+    }
+100%{
+    opacity:1;
+    }
 `;
-
 const test1 = keyframes`
-	0% {
-		width:40%;
-	}
-	100% {
-		width:80%;
-	}
+0%{
+    width:40%;
+    }
+100%{
+
+    width:80%;
+    }
 `;
 
-export default styled(Loginbox)`
+export default styled(ForgetPassword)`
 	overflow: hidden;
 	.container {
 		animation: ${test} 0.8s 1 0s ease-in;
@@ -112,11 +113,11 @@ export default styled(Loginbox)`
 		left: 50%; /* position the left edge of the element at the middle of the parent */
 		transform: translate(-50%, -50%);
 		width: 400px;
-		height: 300px;
+		height: 350px;
 		border-radius: 5px;
 		filter: drop-shadow(0px 15px 15px #181e30);
 		text-align: center;
-		background: #202942;
+		background: #202942; /* Old browsers */
 	}
 	.login1 {
 		font-size: 0.4em;
@@ -129,10 +130,6 @@ export default styled(Loginbox)`
 		margin-top: 10px;
 		font-weight: 600;
 		color: #dfdfe7;
-	}
-
-	h2 {
-		margin-top: 20px;
 	}
 
 	.email,
@@ -156,6 +153,10 @@ export default styled(Loginbox)`
 		background: #272f49;
 	}
 
+	.recaptcha {
+		margin-top: 20px;
+		margin-left: 45px;
+	}
 	.password {
 		margin-top: 10px;
 	}
@@ -166,10 +167,10 @@ export default styled(Loginbox)`
 
 	button {
 		color: #fff;
-		font-weight: 500;
+		font-weight: 400;
 		float: none;
 		background: #6f67fc;
-		margin-top: 20px;
+		margin-top: 30px;
 		width: 50%;
 		height: 35px;
 		padding: 10px;
@@ -184,12 +185,10 @@ export default styled(Loginbox)`
 			cursor: pointer;
 		}
 	}
-
 	button > span {
 		font-size: 1em;
 		font-weight: 600;
 	}
-
 	.beauty {
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -205,6 +204,7 @@ export default styled(Loginbox)`
 		position: absolute;
 		opacity: 0.015;
 	}
+
 	.hello {
 		z-index: 1;
 		left: 0px;
@@ -249,13 +249,12 @@ export default styled(Loginbox)`
 		position: absolute;
 		color: white;
 	}
-
 	.meta {
 		margin-top: 20px;
 	}
 
 	.meta-success {
-		color: green;
+		color: #4bdc7c;
 	}
 
 	.meta-error {

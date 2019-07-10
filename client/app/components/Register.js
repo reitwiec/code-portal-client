@@ -14,12 +14,12 @@ class Register extends Component {
 				</span>
 				<Registerbox />
 				<div className="alternative">
-					<Link className="link" to={'/login'}>
-						Login
-					</Link>
-					{/* <Link className="link" to={'/forgotpassword'}>
-						Recover Account
-					</Link> */}
+					<span>
+						Have account already?{' '}
+						<Link className="link" to={'/login'}>
+							<span id="signin">Sign in.</span>
+						</Link>
+					</span>
 				</div>
 			</div>
 		);
@@ -49,6 +49,12 @@ const slide1 = keyframes`
 `;
 
 export default styled(Register)`
+	#signin {
+		color: #fb0083;
+	}
+	a {
+		text-decoration: none;
+	}
 	height: auto;
 	#logo {
 		position: absolute;
@@ -73,7 +79,7 @@ export default styled(Register)`
 		margin-bottom: 30px;
 	}
 
-	.alternative > .link {
+	.alternative > * {
 		margin: 20px;
 		font-size: 0.9em;
 		color: #9e9ebb;
@@ -85,11 +91,10 @@ export default styled(Register)`
 		-ms-user-select: none;
 		user-select: none;
 		animation: ${slide1} 1s 1 0s ease-in;
-		text-decoration: none;
-		:hover {
-			color: #fff;
-			cursor: pointer;
-			font-size: 1em;
-		}
+	}
+	#signin > hover {
+		color: #fff;
+		cursor: pointer;
+		font-size: 1em;
 	}
 `;

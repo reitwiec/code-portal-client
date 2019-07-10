@@ -18,7 +18,15 @@ class Registerbox extends Component {
 	render() {
 		const {
 			className,
-			registerStore: { fields, meta, onFieldChange, onSubmit, captcha, onResolved, setCaptchaDOM },
+			registerStore: {
+				fields,
+				meta,
+				onFieldChange,
+				onSubmit,
+				captcha,
+				onResolved,
+				setCaptchaDOM
+			},
 			authStore: isLoggedIn,
 			userStore: user
 		} = this.props;
@@ -27,8 +35,15 @@ class Registerbox extends Component {
 			return (
 				<div className={className}>
 					<div className="container">
+						<div className="hello" />
+						<div className="hello1" />
+						<div className="hello2" />
+						<div className="hello3" />
+						<div className="hello4" />
 						<h2>
-							Register for <span>CodePortal</span>{' '}
+							{' '}
+							<div className="login2">CodePortal</div>{' '}
+							<div className="login1">Create a new account.</div>
 						</h2>
 						<form onSubmit={this.submit}>
 							<FormInput
@@ -107,7 +122,8 @@ class Registerbox extends Component {
 								render="explicit"
 								theme="dark"
 								className="recaptcha"
-								onChange={ onResolved } />
+								onChange={onResolved}
+							/>
 							{meta.msg && (
 								<div
 									className={`meta ${
@@ -119,11 +135,11 @@ class Registerbox extends Component {
 							)}
 
 							<button disabled={!meta.isValid} value="Continue" type="submit">
-								Register
+								<span>Register Account</span>
 							</button>
 						</form>
 						<div className="beauty">
-							<h1>User</h1>
+							<h1>Hello</h1>
 						</div>
 					</div>
 				</div>
@@ -157,6 +173,18 @@ const test1 = keyframes`
 `;
 
 export default styled(Registerbox)`
+	.login1 {
+		font-size: 0.4em;
+		font-weight: 400;
+		letter-spacing: 3px;
+		color: #dfdfe7;
+	}
+	.login2 {
+		font-size: 1.2em;
+		margin-top: 10px;
+		font-weight: 600;
+		color: #dfdfe7;
+	}
 	overflow: hidden;
 	.container {
 		animation: ${test} 0.8s 1 0s ease-in;
@@ -166,29 +194,11 @@ export default styled(Registerbox)`
 		width: 400px;
 		height: auto;
 		padding-bottom: 30px;
-		border-radius: 10px;
 
+		border-radius: 5px;
+		filter: drop-shadow(0px 15px 15px #181e30);
 		text-align: center;
-		background: #27273f; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#27273f 9%,
-			#1f1f33 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#27273f 9%,
-			#1f1f33 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#27273f 9%,
-			#1f1f33 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27273f', endColorstr='#1f1f33',GradientType=1 );
-		filter: drop-shadow(0 0 0.95rem #1f2032);
+		background: #202942;
 	}
 
 	input[type='number']::-webkit-inner-spin-button,
@@ -216,27 +226,29 @@ export default styled(Registerbox)`
 		font-size: 0.8em;
 		width: 100%;
 		transform: translateX(-50%);
-		color: rgba(255, 0, 0, 0.7);
+		color: #db3143;
 	}
 
 	.field {
 		display: block;
-		animation: ${test1} 1.2s 1 0.2s ease-out forwards;
 
-		color: #fff;
-		border: 0px;
-		box-shadow: none;
-		outline: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		appearance: none;
 		height: 35px;
 		margin-top: 20px;
 		margin-left: 38px;
+		padding: 10px;
+		outline: none;
+		animation: ${test1} 1.2s 1 0.2s ease-out forwards;
+		font-weight: 500;
+		color: #fff;
+		border: 0px;
+		border-radius: 4px;
+		box-shadow: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
 		border: none;
 		text-indent: 10px;
-		background: rgba(255, 255, 255, 0);
-		border-bottom: 1px solid rgba(223, 223, 231, 0.5);
+		background: #272f49;
 	}
 
 	.field:not(:first-child) {
@@ -249,40 +261,48 @@ export default styled(Registerbox)`
 
 		&::before {
 			content: '*';
-			color: rgba(0, 150, 200, 0.7);
+			margin-top: 5px;
+			color: #db3143;
 			position: absolute;
 			font-size: 1.8rem;
 			top: 0px;
-			right: 40px;
+			animation: ${test} 2s 1 0s linear forwards;
+			right: 60px;
 		}
 	}
 
 	input::-webkit-input-placeholder {
-		color: rgba(223, 223, 231, 0.6);
+		color: #565f79;
 	}
 
 	button {
 		color: #fff;
-		font-weight: 400;
 		float: none;
-		background: #6f67fc;
-		margin-top: 30px;
+		background: #90d074;
+		margin-top: 20px;
 		width: 50%;
 		height: 35px;
 		padding: 10px;
 		padding-top: 7px;
 		border: none;
-		border-radius: 5px;
+		border-radius: 20px;
 		transition: 0.4s;
+		box-shadow: none;
+		outline: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		filter: drop-shadow(0px 5px 3px #1d243a);
 		:hover {
 			width: 80%;
-			background: #a94cf2;
+			background: #63c595;
 			cursor: pointer;
 		}
 	}
 
 	button > span {
-		font-size: 1.2em;
+		font-size: 1em;
+		font-weight: 600;
 	}
 
 	.beauty {
@@ -306,14 +326,58 @@ export default styled(Registerbox)`
 	}
 
 	.meta-success {
-		color: green;
+		color: #4bdc7c;
 	}
 
 	.meta-error {
-		color: rgba(255, 0, 0, 0.7);
+		color: #db3143;
 	}
 
 	.recaptcha {
 		margin: 30px 50px;
+	}
+	.hello {
+		z-index: 1;
+		left: 0px;
+		width: 20%;
+		height: 3px;
+		background: #fb0083;
+		position: absolute;
+	}
+	.hello1 {
+		z-index: 1;
+		left: 20%;
+		width: 20%;
+		height: 3px;
+		background: #4bdc7c;
+		position: absolute;
+		color: white;
+	}
+	.hello2 {
+		z-index: 1;
+		left: 40%;
+		width: 20%;
+		height: 3px;
+		background: #b14aee;
+		position: absolute;
+		color: white;
+	}
+	.hello3 {
+		z-index: 1;
+		left: 60%;
+		width: 20%;
+		height: 3px;
+		background: #f6c760;
+		position: absolute;
+		color: white;
+	}
+	.hello4 {
+		z-index: 1;
+		left: 80%;
+		width: 20%;
+		height: 3px;
+		background: #6a93ff;
+		position: absolute;
+		color: white;
 	}
 `;

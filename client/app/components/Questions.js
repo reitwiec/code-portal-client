@@ -16,6 +16,7 @@ class Questions extends Component {
 			questionsStore: { questions },
 			contestsStore: { title, slug }
 		} = this.props;
+
 		return (
 			<div className={this.props.className}>
 				<Navbar />
@@ -38,31 +39,40 @@ class Questions extends Component {
 							</div>
 							<div className="content">
 								{questions.map((question, i) => (
-									<div className="questions" key={`question_${i}`}>
-										<section>
-											{question.title}
-										</section>
-										<span className="details">Max Score: {question.score}</span>
-										<span className="strength">
-											Difficulty: {question.level}
-										</span>
-										{question.attempted && <span className="strength">
-											Score: {question.obtained_score}
-										</span>}
-										{question.attempted && question.obtained_score >=question.score && <i className="fas fa-check accepted"></i>}
-										<NavLink to={`/question/${question.slug}`}>
-											<Button>Solve</Button>
-										</NavLink>
-									</div>
+									<NavLink to={`/question/${question.slug}`}>
+										<div
+											className={
+												question.attempted &&
+												question.obtained_score >= question.score
+													? `questions completedques`
+													: `questions`
+											}
+											key={`question_${i}`}>
+											<section>{question.title}</section>
+											<span className="details">
+												Max Score: {question.score}
+											</span>
+											<span className="strength">
+												Difficulty: {question.level}
+											</span>
+											{question.attempted && (
+												<span className="strength">
+													Score: {question.obtained_score}
+												</span>
+											)}
+											{question.attempted &&
+												question.obtained_score >= question.score && (
+													<i className="fas fa-check accepted" />
+												)}
+										</div>
+									</NavLink>
 								))}
 							</div>
 						</div>
 
 						<div className="stats">
 							<div className="heading1">
-								<span id="rank">
-									{/* Current Rank: <strong>13</strong> */}
-								</span>
+								<span id="rank">{/* Current Rank: <strong>13</strong> */}</span>
 								<span className="fadebg1">Win</span>
 							</div>
 							<div className="otherstat">
@@ -80,7 +90,7 @@ class Questions extends Component {
 												fill="#7e7cad"
 											/>
 										</svg>
-											<span className="tooltiptext1">Check Leaderboard</span>
+										<span className="tooltiptext1">Check Leaderboard</span>
 									</div>
 								</NavLink>
 								<span id="lead">Leaderboard</span>
@@ -133,6 +143,9 @@ var Gradient = keyframes`
 `;
 
 export default styled(Questions)`
+	${Content} {
+		min-height: 77vh;
+	}
 	.fadebg1 {
 		padding-left: 10px;
 		opacity: 0.23;
@@ -148,27 +161,9 @@ export default styled(Questions)`
 		width: 300px;
 		height: 300px;
 		border-radius: 6px;
-		background: #2f2f4b; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2f4b', endColorstr='#26263e',GradientType=1 );
+		background: #202942;
+		filter: drop-shadow(0px 15px 15px #181e30);
 		border: none;
-		filter: drop-shadow(0 0 0.95rem #1f2032);
 		animation: ${check1} 2s ease 1;
 	}
 	.details {
@@ -189,14 +184,20 @@ export default styled(Questions)`
 		right: 10px;
 		transition: 0.4s;
 		position: absolute;
-		background: #fd6b9a;
+		background: #202942;
+		font-weight: 400;
+		color: #51608d;
+	}
+	.questions:hover ${Button} {
+		color: #fff;
+		background: #f77f6e;
 	}
 	${Button}:hover {
-		background: #f77f6e;
+		font-weight: 500;
 	}
 
 	.content {
-		filter: drop-shadow(0px 5px 5px #282840);
+		/* filter: drop-shadow(0px 5px 5px #282840); */
 	}
 	.strength {
 		margin-left: 60px;
@@ -204,44 +205,48 @@ export default styled(Questions)`
 		font-size: 0.7em;
 	}
 	.questions {
+		width: 93%;
+		left: 50%;
+		transform: translateX(-50%);
 		position: relative;
-		color: #dfdfe7;
+		color: #51608d;
 		font-size: 1.3em;
 		font-weight: 700;
 		line-height: 1;
 		padding: 10px;
+		border-radius: 10px;
 		margin: 20px 0 20px 0;
-		background: #2f2e4d;
-		transition: 0.2s;
+		background: #272f49;
+		transition: 0.3s;
+	}
+
+	.completedques {
+		color: #fff;
 	}
 	.questions:hover {
+		background: #fd6b9a;
+		/* background: #16b84c; */
 		color: #fff;
-		background: #363559;
+		filter: drop-shadow(0px 5px 5px #181e30);
+		section {
+			font-size: 1.5em;
+			color: #fff;
+		}
+	}
+	.questions > section:hover {
+		font-size: 1.5em;
+		color: #fff;
+	}
+
+	.questions > section {
+		transition: 0.2s;
 	}
 	.container {
 		border-radius: 6px;
-		background: #2f2f4b; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2f4b', endColorstr='#26263e',GradientType=1 );
+		background: #202942;
+		filter: drop-shadow(0px 15px 15px #181e30);
 		width: 60%;
 		border: none;
-		filter: drop-shadow(0 0 0.95rem #1f2032);
 		animation: ${check} 2s ease 1;
 	}
 	border: none;

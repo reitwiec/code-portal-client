@@ -19,7 +19,9 @@ import {
 	Register,
 	Leaderboard,
 	Profile,
-	SubmissionsView
+	SubmissionsView,
+	Recover,
+	ResetPass
 } from 'components';
 
 // const AdminView = lazy(() => import('./components/admin/AdminView'));
@@ -84,9 +86,7 @@ class App extends Component {
 										path="/leaderboard/:slug"
 										component={({ match }) =>
 											this.loginRequired(
-												<Leaderboard
-													slug={match.params.slug}
-												/>
+												<Leaderboard slug={match.params.slug} />
 											)
 										}
 									/>
@@ -94,9 +94,7 @@ class App extends Component {
 										path="/profile/:slug"
 										component={({ match }) =>
 											this.loginRequired(
-												<Profile
-													username={match.params.slug}
-												/>
+												<Profile username={match.params.slug} />
 											)
 										}
 									/>
@@ -107,7 +105,9 @@ class App extends Component {
 									<Route
 										path="/submission/:id"
 										render={({ match }) =>
-											this.loginRequired(<Submission submissionId={match.params.id} />)
+											this.loginRequired(
+												<Submission submissionId={match.params.id} />
+											)
 										}
 									/>
 									<Route
@@ -119,7 +119,9 @@ class App extends Component {
 									<Route
 										path="/submissions/:slug"
 										render={({ match }) =>
-											this.loginRequired(<SubmissionsView slug={match.params.slug} />)
+											this.loginRequired(
+												<SubmissionsView slug={match.params.slug} />
+											)
 										}
 									/>
 									<Route
@@ -135,6 +137,12 @@ class App extends Component {
 										component={() => this.redirectLoggedin(<Login />)}
 										exact
 									/>
+									<Route
+										path="/recover"
+										component={() => this.redirectLoggedin(<Recover />)}
+										exact
+									/>
+									<Route path="/reset" component={ResetPass} />
 									<Route component={() => <Error />} />
 								</Switch>
 							</Suspense>

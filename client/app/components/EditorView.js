@@ -6,29 +6,31 @@ import { Button, Content, Editor, Navbar } from 'components';
 import { observer, inject } from 'mobx-react';
 
 function MarkdownWrapper(source) {
-	return <Markdown
-	source={source}
-	options={{
-		html: true,
-		linkify: true,
-		langPrefix: 'code-block language-',
-		highlight: function(str, lang) {
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					return hljs.highlight(lang, str).value;
-				} catch (err) {
-					console.log(err);
+	return (
+		<Markdown
+			source={source}
+			options={{
+				html: true,
+				linkify: true,
+				langPrefix: 'code-block language-',
+				highlight: function(str, lang) {
+					if (lang && hljs.getLanguage(lang)) {
+						try {
+							return hljs.highlight(lang, str).value;
+						} catch (err) {
+							console.log(err);
+						}
+					}
+					try {
+						return hljs.highlightAuto(str).value;
+					} catch (err) {
+						console.log(err);
+					}
+					return '';
 				}
-			}
-			try {
-				return hljs.highlightAuto(str).value;
-			} catch (err) {
-				console.log(err);
-			}
-			return '';
-		}
-	}}
-/>
+			}}
+		/>
+	);
 }
 
 @inject('questionsStore', 'contestsStore')
@@ -121,17 +123,11 @@ class EditorView extends Component {
 								<strong>View Submissions</strong>{' '}
 							</NavLink>
 						</div>
-						<section className="question-body">
-							{MarkdownWrapper(body)}
-						</section>
+						<section className="question-body">{MarkdownWrapper(body)}</section>
 						<hr />
 
 						<div className="box1">
 							<h3>Input Format</h3>
-							{/* <svg viewBox="0 0 1500 1500" className="input" fill="white">
-								<path d="M62.43,824.15c6.85-15.72,19.37-20.55,35.78-20.39,47.26.46,94.53,0,141.79.22,27,.11,34.89,8.2,34.91,35.09q.07,131.76,0,263.54V1120h951v-18.12q0-130.22,0-260.45c0-30.31,7-37.43,37.15-37.49q69.36-.13,138.71,0c28.13.1,35.59,7.73,35.6,35.8,0,152.57-.17,305.15.26,457.72,0,16-4.25,27.94-18.78,35.34H62.43Z" />
-								<path d="M592.12,592.7V572.6q0-170.23,0-340.48c0-42.5,19.51-62,62.08-62.07q97-.12,194.11,0c40.12.08,60.73,20.61,60.77,60.72q.17,171,0,342v19.9h18.14c64.19,0,128.39-.23,192.58.19,30.46.21,50.81,20,53.69,50.3,1.67,17.54-6.75,30.34-18.49,42q-65.52,65.21-130.77,130.68-116,116-232.07,232c-27.93,27.92-55.44,28-83,.48Q528.37,867.56,347.36,686.9c-17.89-17.8-25.66-36.66-16.05-60.85,9.19-23.13,25.75-33.25,55-33.31q93.21-.16,186.41,0Z" />
-							</svg> */}
 						</div>
 
 						<section>{MarkdownWrapper(input_format)}</section>
@@ -147,33 +143,31 @@ class EditorView extends Component {
 
 						<section>{MarkdownWrapper(output_format)}</section>
 
-						{
-							samples.map((sample, i) => (
-								<div>
-									<div className="box1">
-										<h3>Sample Input {i + 1}</h3>
-									</div>
-
-									<section className="copyable">{MarkdownWrapper(sample.input)}</section>
-
-									<div className="box1">
-										<h3>Sample Output {i + 1}</h3>
-									</div>
-
-									<section className="copyable">{MarkdownWrapper(sample.output)}</section>
+						{samples.map((sample, i) => (
+							<div>
+								<div className="box1">
+									<h3>Sample Input {i + 1}</h3>
 								</div>
-							))
-						}
 
+								<section className="copyable">
+									{MarkdownWrapper(sample.input)}
+								</section>
+
+								<div className="box1">
+									<h3>Sample Output {i + 1}</h3>
+								</div>
+
+								<section className="copyable">
+									{MarkdownWrapper(sample.output)}
+								</section>
+							</div>
+						))}
 					</div>
 					<Editor />
 					<div className="java-note">Java class names must be: Main</div>
 					<NavLink to="/submission/processing">
 						<Button onClick={submitAnswer}>Submit</Button>
 					</NavLink>
-					<div className="beauty">
-						<h1>Edit</h1>
-					</div>
 				</Content>
 			</div>
 		);
@@ -267,7 +261,7 @@ export default styled(EditorView)`
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
-		filter: drop-shadow(7px 5px 10px #1b1b2b);
+		filter: drop-shadow(7px 5px 10px #181e30);
 		margin-bottom: 1.5em;
 		justify-content: space-between;
 		display: flex;
@@ -317,6 +311,7 @@ export default styled(EditorView)`
 		font-size: 100px;
 		position: absolute;
 		opacity: 0.02;
+		z-index: -100;
 	}
 
 	.navigation,
@@ -352,13 +347,22 @@ export default styled(EditorView)`
 
 	.view-submissions {
 		margin-left: auto;
-		color: #699AFB;
+		color: #699afb;
 		cursor: pointer;
+	}
+
+	.view-submissions:hover {
+		color: #fff;
 	}
 
 	.java-note {
 		color: white;
 		display: flex;
 		justify-content: flex-end;
+	}
+
+	.input {
+		width: 20px;
+		height: 20px;
 	}
 `;

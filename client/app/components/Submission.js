@@ -14,8 +14,8 @@ const ans = {
 };
 
 function pad(num, size) {
-	var s = num+"";
-	while (s.length < size) s = "0" + s;
+	var s = num + '';
+	while (s.length < size) s = '0' + s;
 	return s;
 }
 
@@ -31,56 +31,20 @@ class Submission extends Component {
 	}
 
 	componentDidMount() {
-		if(this.props.submissionId !== 'processing')
+		if (this.props.submissionId !== 'processing')
 			this.props.questionsStore.setSubmission(this.props.submissionId);
-
-		// var x = 1;
-		// var elem = document.getElementById('accuracy');
-		// var id = setInterval(frame, 30);
-		// function frame() {
-		// 	if (x >= 73) {
-		// 		clearInterval(id);
-		// 	} else {
-		// 		x = x + 2;
-		// 		elem.innerText = x;
-		// 	}
-		// 	elem.innerText = x + '%';
-		// }
-		// this.interval = setInterval(
-		// 	() =>
-		// 		this.state.val_1 >= 73
-		// 			? clearInterval(this.interval)
-		// 			: this.setState({ val_1: this.state.val_1 + 1 }),
-		// 	10
-		// );
-		// this.interval = setInterval(
-		// 	() =>
-		// 		this.state.val_2 >= 9.35
-		// 			? clearInterval(this.interval)
-		// 			: this.setState({ val_2: this.state.val_2 + 0.3 }),
-		// 	10
-		// );
 	}
-
 
 	render() {
 		const {
-			questionsStore: {
-				points,
-				verdict,
-				cases,
-				score,
-				slug,
-				title,
-				submission
-			}
+			questionsStore: { points, verdict, cases, score, slug, title, submission }
 		} = this.props;
 
 		const contestSlug = this.props.contestsStore.slug;
 		const contestTitle = this.props.contestsStore.title;
 
-		if(submission && this.props.submissionId === 'processing')
-			return <Redirect to={`/submission/${submission}`} />
+		if (submission && this.props.submissionId === 'processing')
+			return <Redirect to={`/submission/${submission}`} />;
 
 		return (
 			<div className={this.props.className}>
@@ -105,26 +69,24 @@ class Submission extends Component {
 					</div>
 					<h1 className="test">Test Cases Result</h1>
 					<div className="flex-container">
-						{cases.map((c, i) =>
+						{cases.map((c, i) => (
 							<div className="fa-3x result" key={`result_${i}`}>
 								{pad(i + 1, (cases.length + '').length)}
 								<i className={ans[c.verdict]} aria-hidden="true" />
 							</div>
-						)}
+						))}
 					</div>
 					<hr />
 
 					<div className="container1">
 						<div className="column">
 							<h3>Your Score</h3>
-							<section id="score">{points}/{score}</section>
-							<Gauge
-								color="#ea2d78"
-								size="3em"
-								percentage={points / score}
-							/>
+							<section id="score">
+								{points}/{score}
+							</section>
+							<Gauge color="#0f0" size="3em" percentage={points / score} />
 						</div>
-{/*
+						{/*
 						<div className="column">
 							<h3>Your Accuracy</h3>
 							<section id="accuracy" />
@@ -155,6 +117,9 @@ class Submission extends Component {
 }
 
 export default styled(Submission)`
+	${Content} {
+		min-height: 77vh;
+	}
 	.flex-container {
 		display: flex;
 		flex-wrap: wrap;
@@ -259,7 +224,8 @@ export default styled(Submission)`
 	.test {
 		margin-top: 20px;
 	}
-	.fa, .fas {
+	.fa,
+	.fas {
 		color: #fff;
 		margin-top: 3px;
 		margin-left: 10px;
@@ -273,11 +239,9 @@ export default styled(Submission)`
 		&.fa-clock {
 			color: #ff0100;
 		}
-
 	}
 
 	.column > span {
 		margin: 2px 0 2px 0;
 	}
-
 `;

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
 import { avatarLarge } from 'assets';
+import Contesticon from './Contesticon';
 
 @inject('authStore', 'profileStore')
 @observer
@@ -16,38 +17,53 @@ class Profile extends Component {
 	render() {
 		const {
 			profileStore: {
-        profile: {
-          name,
-          username,
-          email,
-          organisation,
-          regno,
-          phone,
-          rating
-				},
-        activities
-      },
-			authStore: {
-				logout
+				profile: { name, username, email, organisation, regno, phone, rating },
+				activities
 			},
-    } = this.props;
+			authStore: { logout }
+		} = this.props;
 
 		return (
 			<div className={this.props.className}>
 				<Navbar />
 				<Content>
-          <div className="area">
-            <div className="personal-data">
-              <div>{email && <div><span className="lead">Email</span><span className="follow long">{email}</span></div>}</div>
-              <div>{phone && <div><span className="lead">Phone</span><span className="follow">{phone}</span></div>}
-              {regno && <div><span className="lead">Regno</span><span className="follow">{regno}</span></div>}</div>
-            </div>
-            <div className="personal-data">
-              <div>{email && <div><Button onClick={logout}>Logout</Button></div>}</div>
-            </div>
-          </div>
 					<div className="area">
-            <div className="stats">
+						<div className="personal-data">
+							<div>
+								<table className="tg1">
+									{email && (
+										<tr>
+											<td className="tg-0pky lead">Email ID :</td>
+											<td className="tg-0pky follow long">{email}</td>
+										</tr>
+									)}
+									{phone && (
+										<tr>
+											<td className="tg-0pky lead">Phone :</td>
+											<td className="tg-0pky follow">{phone}</td>
+										</tr>
+									)}
+									{regno && (
+										<tr>
+											<td className="tg-0pky lead">Regno :</td>
+											<td className="tg-0pky follow">regno</td>
+										</tr>
+									)}
+								</table>
+							</div>
+						</div>
+						<div className="personal-data">
+							<div>
+								{email && (
+									<div>
+										<Button onClick={logout}>Sign Out</Button>
+									</div>
+								)}
+							</div>
+						</div>
+					</div>
+					<div className="area">
+						<div className="stats">
 							<div className="heading1">
 								<span id="rank">
 									<strong>{name}</strong>
@@ -55,24 +71,27 @@ class Profile extends Component {
 								<span className="fadebg1">Profile</span>
 							</div>
 							<div className="otherstat">
-								{/* <div className="box">
-									<svg
-										id="Capa_1"
-										x="0px"
-										y="0px"
-										viewBox="0 0 94.667 94.667"
-										width="512px"
-										height="512px">
-										<path
-											d="M82.413,9.146h9.346V83.33h-9.346V9.146z M63.803,11.831l-1.294,0.402c-1.62,0.512-3.524-0.201-4.179-1.558    c-0.314-0.657-0.329-1.383-0.041-2.047c0.334-0.768,1.044-1.369,1.945-1.65l14.591-4.545l1.776,13.001    c0.1,0.662-0.086,1.338-0.525,1.898c-0.537,0.688-1.4,1.134-2.368,1.226c-0.116,0.012-0.246,0.018-0.371,0.018    c-1.651,0-3.053-1.052-3.261-2.444l-0.225-1.967C52.988,37.514,14.157,62.539,12.472,63.617c-0.572,0.366-1.256,0.561-1.98,0.561    c-0.976,0-1.894-0.36-2.517-0.991c-0.573-0.577-0.841-1.313-0.758-2.069c0.087-0.785,0.558-1.507,1.294-1.975    C8.906,58.889,47.367,34.026,63.803,11.831z M74.859,25.623v57.705h-9.344V25.623H74.859z M58.518,42.77v40.56h-9.347V42.77    H58.518z M41.617,60.583v22.744h-9.345V60.583H41.617z M23.75,69.494v13.834h-9.344V69.494H23.75z M94.666,92.234H0V85.3h94.667    L94.666,92.234L94.666,92.234z"
-											fill="#7e7cad"
-										/>
-									</svg>
-									<span className="tooltiptext1">Check Profile</span>
-								</div> */}
-                {username && <div><span className="lead">Username</span><span className="follow">{username}</span></div>}
-                {rating && <div><span className="lead">Rating</span><span className="follow">{rating}</span></div>}
-                {organisation && <div><span className="lead">Organisation</span><span className="follow">{organisation}</span></div>}
+								<table className="tg">
+									{username && (
+										<tr>
+											<td className="tg-0pky lead">Username :</td>
+											<td className="tg-0pky follow">{username}</td>
+										</tr>
+									)}
+
+									{rating && (
+										<tr>
+											<td className="tg-0pky lead">Rating :</td>
+											<td className="tg-0pky follow">{rating}</td>
+										</tr>
+									)}
+									{organisation && (
+										<tr>
+											<td className="tg-0pky lead">Organisation :</td>
+											<td className="tg-0pky follow">organisation</td>
+										</tr>
+									)}
+								</table>
 							</div>
 						</div>
 						<div className="container">
@@ -81,20 +100,20 @@ class Profile extends Component {
 								<span className="fadebg1">{name}</span>
 							</div>
 							<div className="content">
-                {activities.length === 0
-                  ? <div className="center-align">No activity yet</div>
-                  : activities.map((activity, i) => (
-                    <div className="activity" key={`activity_${i}`}>
-                    </div>
-                  ))}
+								{activities.length === 0 ? (
+									<div className="center-align">No activity yet</div>
+								) : (
+									activities.map((activity, i) => (
+										<div className="activity" key={`activity_${i}`} />
+									))
+								)}
 							</div>
 						</div>
-
 					</div>
 
-					<div className="beauty">
+					{/* <div className="beauty">
 						<h1>Profile</h1>
-					</div>
+					</div> */}
 				</Content>
 			</div>
 		);
@@ -149,30 +168,12 @@ export default styled(Profile)`
 		position: absolute;
 	}
 	.stats {
-		width: 300px;
+		border-radius: 5px;
+		filter: drop-shadow(0px 15px 15px #181e30);
+		background: #202942;
+		width: 400px;
 		height: 300px;
-		border-radius: 6px;
-		background: #2f2f4b; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2f4b', endColorstr='#26263e',GradientType=1 );
 		border: none;
-		filter: drop-shadow(0 0 0.95rem #1f2032);
 		animation: ${check1} 2s ease 1;
 	}
 	.details {
@@ -223,29 +224,12 @@ export default styled(Profile)`
 		background: #363559;
 	}
 	.container {
-		border-radius: 6px;
-		background: #2f2f4b; /* Old browsers */
-		background: -moz-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* FF3.6-15 */
-		background: -webkit-radial-gradient(
-			center,
-			ellipse cover,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background: radial-gradient(
-			ellipse at center,
-			#2f2f4b 9%,
-			#26263e 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f2f4b', endColorstr='#26263e',GradientType=1 );
+		border-radius: 5px;
+		filter: drop-shadow(0px 15px 15px #181e30);
+		background: #202942;
+
 		width: 60%;
 		border: none;
-		filter: drop-shadow(0 0 0.95rem #1f2032);
 		animation: ${check} 2s ease 1;
 	}
 	border: none;
@@ -255,7 +239,7 @@ export default styled(Profile)`
 		z-index: 1;
 		position: sticky;
 		top: 0;
-		filter: drop-shadow(0px 5px 5px #282840);
+
 		border-radius: 6px 6px 0 0;
 		height: 55px;
 
@@ -281,11 +265,11 @@ export default styled(Profile)`
 	#rank {
 		font-size: 1.2em;
 		line-height: 55px;
-    color: #fff;
-    padding: 0 10px;
+		color: #fff;
+		padding: 0 10px;
 	}
 	#rank > strong {
-    color: #fff;
+		color: #fff;
 		font-size: 1.5em;
 	}
 	#Capa_1 {
@@ -348,20 +332,11 @@ export default styled(Profile)`
 	}
 	.otherstat {
 		line-height: 50px;
-		flex-dirextion: row;
-		flex-wrap: wrap;
-		padding-right: 90px;
+
+		padding-right: 20px;
 		margin: 20px;
-		position: relative;
-		display: flex;
-		justify-content: space-between;
 	}
-	.lead {
-		color: #d7d7ef;
-		font-weight: 600;
-		font-size: 1.2em;
-    line-height: 2;
-	}
+
 	.beauty {
 		bottom: 85px;
 		right: 0px;
@@ -390,42 +365,55 @@ export default styled(Profile)`
 	}
 	.navigation:hover {
 		color: #fff;
-  }
-  .center-align {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: bold;
-    margin-top: 115px;
-  }
-  .follow {
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 20px;
-    line-height: 1.1;
-    max-width: 150px;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 150px;
-  }
+	}
+	.center-align {
+		display: flex;
+		height: 100%;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		color: rgba(255, 255, 255, 0.6);
+		font-weight: bold;
+		margin-top: 115px;
+	}
 
-  .follow.long {
-    width: 300px;
-    max-width: 300px;
-  }
+	.lead {
+		font-weight: 400;
+		color: #dfdfe7;
+		font-size: 0.9em;
+	}
 
-  .personal-data {
-    display: flex;
-    flex-direction: column;
+	.follow {
+		color: #fff;
+		letter-spacing: 1px;
+		text-align: left;
+		font-size: 1em;
+		font-weight: 600;
+		margin-left: 20px;
+		max-width: 150px;
+		display: inline-block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 150px;
+	}
 
-    & > div {
-      display: flex;
-      flex-direction: row;
-    }
-  }
+	.follow.long {
+		width: 300px;
+		max-width: 300px;
+	}
 
+	.personal-data {
+		display: flex;
+		flex-direction: column;
+
+		& > div {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+
+	${Content} {
+		height: 80vh;
+	}
 `;
