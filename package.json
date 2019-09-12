@@ -1,0 +1,42 @@
+{
+  "name": "code-portal",
+  "version": "1.0.0",
+  "description": "IECSE's Code Portal for hosting online coding competitions",
+  "main": "server.js",
+  "repository": "git@github.com:Shreyansh97/Code-Portal.git",
+  "author": "IECSE",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon server --ignore 'client/*'"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "busboy": "^0.2.14",
+    "connect-redis": "^3.4.0",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.0.0",
+    "express-session": "^1.15.6",
+    "express-socket.io-session": "^1.3.5",
+    "joi": "^14.0.6",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
+    "nodemon": "^1.18.9",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "sequelize": "^4.41.1",
+    "shelljs": "^0.8.3",
+    "socket.io": "^2.2.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "prettier": "^1.16.4"
+  }
+}
