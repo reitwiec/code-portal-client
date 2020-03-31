@@ -7,6 +7,8 @@ class Footer extends Component {
 			<footer className={this.props.className}>
 				<br />
 				<span id="copyright">
+					Contact sparsh@iecsemanipal.com for any issues
+					<br/>
 					<i className="fa fa-heart" id="heart" />
 					&nbsp;© 2018, IECSE Manipal. All rights reserved.{' '}
 				</span>
